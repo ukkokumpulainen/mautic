@@ -678,6 +678,16 @@ class LeadListRepository extends CommonRepository
                             break;
                     }
 
+
+                    // php date input
+                    if(stristr($string[0], '-') or stristr($string[0], '+')){
+                        $date = new \DateTime('now');
+                        $date->modify($string);
+                        $dateTime = $date->format('Y-m-d H:i:s');
+                        $dtHelper->setDateTime($dateTime, null);
+                        $isRelative = true;
+                    }
+
                     if ($isRelative) {
                         if ($requiresBetween) {
                             $startWith = ($isTimestamp) ? $dtHelper->toUtcString('Y-m-d H:i:s') : $dtHelper->toUtcString('Y-m-d');
